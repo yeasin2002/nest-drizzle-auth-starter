@@ -1,4 +1,4 @@
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import {
   Body,
@@ -20,6 +20,10 @@ export class UsersController {
 
   @Post()
   @ApiOperation({ summary: 'Create a new user' })
+  @ApiBody({
+    type: CreateUserDto,
+    description: 'User data to create a new user',
+  })
   @ApiResponse({ status: 201, description: 'User created successfully' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
@@ -42,6 +46,10 @@ export class UsersController {
   @Patch(':id')
   @ApiOperation({ summary: 'Update a user' })
   @ApiResponse({ status: 200, description: 'User updated successfully' })
+  @ApiBody({
+    type: UpdateUserDto,
+    description: 'User data to update a user',
+  })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);
   }
