@@ -1,4 +1,4 @@
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
 import {
   Body,
@@ -11,6 +11,13 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import {
+  ApiCreateUserDocs,
+  ApiDeleteUserDocs,
+  ApiGetUserDocs,
+  ApiGetUsersDocs,
+  ApiUpdateUserDocs,
+} from './users.docs';
 import { UsersService } from './users.service';
 
 @ApiTags('Users')
@@ -19,44 +26,31 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a new user' })
-  @ApiBody({
-    type: CreateUserDto,
-    description: 'User data to create a new user',
-  })
-  @ApiResponse({ status: 201, description: 'User created successfully' })
+  @ApiCreateUserDocs()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
   @Get()
-  @ApiOperation({ summary: 'Get all users' })
-  @ApiResponse({ status: 200, description: 'List of users' })
+  @ApiGetUsersDocs()
   findAll() {
     return this.usersService.findAll();
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Get a single user' })
-  @ApiResponse({ status: 200, description: 'User found' })
+  @ApiGetUserDocs()
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Update a user' })
-  @ApiResponse({ status: 200, description: 'User updated successfully' })
-  @ApiBody({
-    type: UpdateUserDto,
-    description: 'User data to update a user',
-  })
+  @ApiUpdateUserDocs()
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete a user' })
-  @ApiResponse({ status: 200, description: 'User deleted successfully' })
+  @ApiDeleteUserDocs()
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
