@@ -50,7 +50,7 @@ export function ApiCreateUserDocs() {
   );
 }
 
-// --------- Get all users (paginated) ---------
+// --------- Get all users  ---------
 export function ApiGetUsersDocs() {
   return applyDecorators(
     ApiOperation({ summary: 'Get list of users (paginated)' }),
