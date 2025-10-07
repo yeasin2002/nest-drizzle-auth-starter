@@ -37,10 +37,15 @@ async function bootstrap() {
     '/scaler',
     apiReference({
       theme: 'deepSpace',
-      content: document,
+      // content: document,
+      sources: [
+        { title: 'nest', content: document, default: true },
+        { title: 'Auth', url: '/api/auth/open-api/generate-schema' },
+      ],
     }),
   );
 
   await app.listen(process.env.PORT || 4000);
 }
 bootstrap();
+// o /api/auth/reference

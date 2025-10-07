@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { openAPI } from 'better-auth/plugins';
 import { DbService } from '../db/db.service';
 import * as schema from '../db/schema';
 
@@ -24,6 +25,8 @@ export class AuthService {
       },
       secret: process.env.BETTER_AUTH_SECRET,
       baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
+
+      plugins: [openAPI()],
     });
   }
 
