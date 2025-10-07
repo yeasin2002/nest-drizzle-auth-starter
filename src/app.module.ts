@@ -3,11 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 
-import { AuthModule } from '@thallesp/nestjs-better-auth';
-import { auth } from './lib/auth';
+import { AuthModule } from './auth/auth.module';
+import { DbModule } from './db/db.module';
 
 @Module({
-  imports: [UsersModule, AuthModule.forRoot({ auth })],
+  imports: [UsersModule, DbModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
