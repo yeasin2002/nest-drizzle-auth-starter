@@ -3,7 +3,7 @@ import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { openAPI } from 'better-auth/plugins';
 import { DbService } from '../db/db.service';
-import * as schema from '../db/schema';
+import * as schema from '../db/schemas';
 
 @Injectable()
 export class AuthService {
