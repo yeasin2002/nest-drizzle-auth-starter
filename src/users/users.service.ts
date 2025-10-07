@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { DbService } from 'src/db/db.service';
+import { user } from 'src/db/schemas';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
+  constructor(private dbService: DbService) {}
+
   private users: User[] = [
     {
       id: 1,
@@ -26,8 +30,9 @@ export class UsersService {
     };
   }
 
-  findAll() {
-    return this.users;
+  async findAll() {
+    const users = await this.dbService.db.select().from(user);
+    return users;
   }
 
   findOne(id: number) {
