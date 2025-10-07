@@ -8,8 +8,17 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { apiReference } from '@scalar/nestjs-api-reference';
 import { AppModule } from './app.module';
 
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bodyParser: false });
+
+  app.enableCors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    credentials: true,
+  });
 
   const config = new DocumentBuilder()
     .setTitle('NestJS API')
